@@ -1,0 +1,6 @@
+build:
+  docker:
+    release:
+       dockerfile: Backend/Dockerfile
+       target: build
+    web: Backend/Dockerfile
