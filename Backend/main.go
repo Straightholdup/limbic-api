@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	dsn := "host=0.0.0.0 user=root password=CSSE1810da dbname=limbic port=5432"
+	dsn := "host=172.18.0.1 user=root password=CSSE1810da dbname=limbic port=5432"
 	db := models.Init(dsn)
 
 	serverAddr := flag.String("addr", "192.168.1.107:50052", "The server address in the format of host:port")
