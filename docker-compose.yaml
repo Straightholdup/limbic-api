@@ -9,6 +9,12 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - service
+  service:
+    build: ./Service
+    restart: always
+    ports:
+      - "50052:50052"
   db:
     image: postgres:14
     restart: always
@@ -18,6 +24,8 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+
 
 volumes:
   postgres_data:
