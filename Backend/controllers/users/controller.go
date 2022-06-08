@@ -16,7 +16,4 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 
 	routes := r.Group("/users")
 	routes.GET("/", h.GetUsers)
-	routes.GET("/login", h.Login)
-	routes.GET("/g_login", h.HandleGoogleLogin)
-	routes.GET("/g_callback", h.HandleGoogleCallback)
 }

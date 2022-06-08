@@ -3,13 +3,11 @@ package users
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"io/ioutil"
 	"limbic/models"
 	"net/http"
-	"time"
 )
 
 func (h handler) GetUsers(c *gin.Context) {
@@ -37,29 +35,8 @@ func init() {
 	}
 }
 
-var user = models.User{
-	Email:    "username",
-	Password: "password",
-}
+func (h handler) Refresh(c *gin.Context) {
 
-func (h handler) Login(c *gin.Context) {
-	var u models.User
-
-	if err := c.ShouldBindJSON(&u); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
-		return
-	}
-
-	if user.Email != u.Email || user.Password != u.Password {
-		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
-		return
-	}
-	token, err := CreateToken(user.ID)
-	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, err.Error())
-		return
-	}
-	c.JSON(http.StatusOK, token)
 }
 
 func (h handler) HandleGoogleLogin(c *gin.Context) {
@@ -96,19 +73,4 @@ func getUserInfo(state string, code string) ([]byte, error) {
 		return nil, fmt.Errorf("failed reading response body: %s", err.Error())
 	}
 	return contents, nil
-}
-
-func CreateToken(userid uint) (string, error) {
-	var err error
-	//Creating Access Token
-	atClaims := jwt.MapClaims{}
-	atClaims["authorized"] = true
-	atClaims["user_id"] = userid
-	atClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
-	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	token, err := at.SignedString([]byte("jdnfksdmfksd"))
-	if err != nil {
-		return "", err
-	}
-	return token, nil
 }
