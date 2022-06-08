@@ -2,12 +2,14 @@
 
 @use '@material/theme/color-palette';
 
+$custom_primary: #A8DADC;
+$custom_secondary: #FF79A9;
+
 // Svelte Colors!
 @use '@material/theme/index' as theme with (
   $primary: #0077cc,
   $secondary: #676778,
   $surface: #fff,
-  $background: #fff,
   $error: color-palette.$red-900
 );
 

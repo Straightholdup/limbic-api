@@ -1,5 +1,7 @@
 <script lang="ts">
     import Logo from "$lib/components/Logo.svelte";
+    import { isAuthenticated } from "$lib/stores/auth";
+    import { get } from "svelte/store";
 </script>
 
 <nav>
@@ -11,7 +13,11 @@
             <li>Pricing</li>
         </ul>
         <ul class="nav-right">
-            <li>Sign in</li>
+            {#if get(isAuthenticated)}
+                <li><a on:click={()=>alert(1)}>Sign out</a></li>
+            {:else}
+                <li><a href="/auth/signup">Sign in</a></li>
+            {/if}
         </ul>
     </div>
 </nav>

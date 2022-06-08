@@ -1,9 +1,12 @@
-
+html{
+    height: -webkit-fill-available; 
+}
 body{
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
-    background-color: #FAF8FE !important;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 .container {
     padding: 0 15px;
@@ -33,4 +36,16 @@ body{
 .container {
     max-width: 1140px;
 }
+}
+
+@media (min-width: 1423.98px){
+    .container {
+        max-width: 1470px;
+    }
+}
+    
+@media (min-width: 1647.98px){
+    .container {
+        max-width: 1600px;
+    }
 }

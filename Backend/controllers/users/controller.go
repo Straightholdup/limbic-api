@@ -3,6 +3,7 @@ package users
 import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"limbic/controllers/auth"
 )
 
 type handler struct {
@@ -15,5 +16,5 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	}
 
 	routes := r.Group("/users")
-	routes.GET("/", h.GetUsers)
+	routes.GET("/", auth.IsAuthenticated(), h.GetUsers)
 }

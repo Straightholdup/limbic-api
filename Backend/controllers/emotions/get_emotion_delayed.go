@@ -12,6 +12,7 @@ import (
 )
 
 func GrpcEmotionDelayed(client pb.SpeechEmotionRecognitionClient, file *multipart.FileHeader) string {
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	stream, err := client.LoadData(ctx)
