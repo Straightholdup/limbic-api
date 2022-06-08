@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -24,7 +26,8 @@ func main() {
 	defer conn.Close()
 
 	r := gin.Default()
-
+	store := cookie.NewStore([]byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
 	emotions.RegisterRoutes(r, conn)
 	users.RegisterRoutes(r, db)
 	auth.RegisterRoutes(r, db)

@@ -35,10 +35,6 @@ func init() {
 	}
 }
 
-func (h handler) Refresh(c *gin.Context) {
-
-}
-
 func (h handler) HandleGoogleLogin(c *gin.Context) {
 	url := googleOauthConfig.AuthCodeURL(oauthStateString)
 	c.Redirect(http.StatusTemporaryRedirect, url)
