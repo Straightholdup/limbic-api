@@ -2,29 +2,32 @@ package emotions
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
 	"io"
 	pb "limbic/protos"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GrpcEmotionDelayed(client pb.SpeechEmotionRecognitionClient, file *multipart.FileHeader) string {
-
+	log.Printf("here1")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	log.Printf("here2")
 	stream, err := client.LoadData(ctx)
 	if err != nil {
 		log.Fatalf("%v.RecordRoute(_) = _, %v", client, err)
 	}
-
+	log.Printf("here3")
 	fileContent, err := file.Open()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer fileContent.Close()
+	log.Printf("here4")
 
 	nChunks := int64(0)
 	buf := make([]byte, 4*1024)
