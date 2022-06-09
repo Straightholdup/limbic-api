@@ -2,16 +2,17 @@ package main
 
 import (
 	"flag"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
-	"github.com/gin-gonic/gin"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"limbic/controllers/auth"
 	"limbic/controllers/emotions"
 	"limbic/controllers/users"
 	"limbic/models"
 	"log"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -32,5 +33,5 @@ func main() {
 	users.RegisterRoutes(r, db)
 	auth.RegisterRoutes(r, db)
 
-	r.Run(":80")
+	r.Run(":8080")
 }
