@@ -3,7 +3,6 @@ package emotions
 import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
-	"limbic/controllers/auth"
 )
 
 type handler struct {
@@ -16,6 +15,6 @@ func RegisterRoutes(r *gin.Engine, serGrpcClient *grpc.ClientConn) {
 	}
 
 	routes := r.Group("/emotions")
-	routes.POST("/delayed", auth.IsAuthenticated(), h.EmotionDelayed)
-	routes.POST("/realtime", auth.IsAuthenticated(), h.EmotionRealtime)
+	routes.POST("/delayed", h.EmotionDelayed)
+	routes.POST("/realtime", h.EmotionRealtime)
 }

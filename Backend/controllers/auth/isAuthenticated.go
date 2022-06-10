@@ -3,19 +3,15 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"gorm.io/gorm"
+	"limbic/models"
 	"net/http"
 )
 
-func ensureLoggedIn() gin.HandlerFunc {
-	return func(c *gin.Context) {
-
-	}
-}
-
-func IsAuthenticated() gin.HandlerFunc {
+func IsAuthenticated(DB *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// We can obtain the session token from the requests cookies, which come with every request
-		cookie, err := c.Request.Cookie("token")
+		cookie, err := c.Cookie("token")
 		if err != nil {
 			if err == http.ErrNoCookie {
 				// If the cookie is not set, return an unauthorized status
@@ -28,8 +24,7 @@ func IsAuthenticated() gin.HandlerFunc {
 		}
 
 		// Get the JWT string from the cookie
-		tknStr := cookie.Value
-		//tknStr := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxIiwiZXhwIjoxNjU0Njk0OTE0fQ.rM4wR_TiGbD-CQstA3Dg0Hg3whCE-bPu_vSQ4zJw1dE"
+		tknStr := cookie
 
 		// Initialize a new instance of `Claims`
 		claims := &Claims{}
@@ -53,5 +48,14 @@ func IsAuthenticated() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+
+		var user models.User
+		if err := DB.Where(&models.User{Email: claims.Email}).First(&user).Error; err != nil {
+			c.JSON(http.StatusUnprocessableEntity, "Some unexpected error")
+			return
+		}
+		c.Set("user", user)
+
+		c.Next()
 	}
 }

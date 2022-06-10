@@ -16,5 +16,6 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	}
 
 	routes := r.Group("/users")
-	routes.GET("/", auth.IsAuthenticated(), h.GetUsers)
+	routes.GET("/", auth.IsAuthenticated(db), h.GetUsers)
+	routes.GET("/personal-info", auth.IsAuthenticated(db), h.GetPersonalInfo)
 }

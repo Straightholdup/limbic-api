@@ -3,33 +3,30 @@ package auth
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"gorm.io/gorm"
 	"limbic/models"
 	"net/http"
 	"time"
 )
 
-var jwtKey = []byte("my_secret_key")
-
-type Claims struct {
-	Email string `json:"email"`
-	jwt.RegisteredClaims
-}
-
-func (h handler) Login(c *gin.Context) {
+func (h handler) Signup(c *gin.Context) {
 	var u models.User
-
 	if err := c.ShouldBindJSON(&u); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
 		return
 	}
 
 	var user models.User
-	if err := h.DB.Where(&models.User{Email: u.Email}).First(&user).Error; err != nil {
-		c.JSON(http.StatusUnprocessableEntity, "Email is not registered")
+	if err := h.DB.Where(&models.User{Email: u.Email}).First(&user).Error; err != nil && err != gorm.ErrRecordNotFound {
+		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
+		return
+	} else if err == nil {
+		c.JSON(http.StatusUnprocessableEntity, "Email already zaniyat")
 		return
 	}
-	if user.Password != u.Password {
-		c.JSON(http.StatusUnprocessableEntity, "Invalid email or password")
+
+	if err := h.DB.Create(&u).Error; err != nil {
+		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
 		return
 	}
 
@@ -57,12 +54,6 @@ func (h handler) Login(c *gin.Context) {
 
 	// Finally, we set the client cookie for "token" as the JWT we just generated
 	// we also set an expiry time which is the same as the token itself
-	//c.SetCookie("token", )
-	//http.SetCookie(c.Writer, &http.Cookie{
-	//	Name:    "token",
-	//	Value:   tokenString,
-	//	Expires: expirationTime,
-	//})
 	c.SetCookie("token", tokenString, int((5 * time.Minute).Seconds()), "/", "localhost", false, true)
 	c.JSON(http.StatusOK, tokenString)
 }
