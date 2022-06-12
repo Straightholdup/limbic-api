@@ -29,5 +29,5 @@ func main() {
 	users.RegisterRoutes(r, db)
 	auth.RegisterRoutes(r, db)
 	payment.RegisterRoutes(r, db)
-	r.Run(":8080")
+	r.Run(":80")
 }
