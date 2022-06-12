@@ -55,5 +55,5 @@ func (h handler) Signup(c *gin.Context) {
 	// Finally, we set the client cookie for "token" as the JWT we just generated
 	// we also set an expiry time which is the same as the token itself
 	c.SetCookie("token", tokenString, int((5 * time.Minute).Seconds()), "/", "localhost", false, true)
-	c.JSON(http.StatusOK, tokenString)
+	c.JSON(http.StatusOK, user)
 }

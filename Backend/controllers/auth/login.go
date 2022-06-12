@@ -64,5 +64,5 @@ func (h handler) Login(c *gin.Context) {
 	//	Expires: expirationTime,
 	//})
 	c.SetCookie("token", tokenString, int((5 * time.Minute).Seconds()), "/", "localhost", false, true)
-	c.JSON(http.StatusOK, tokenString)
+	c.JSON(http.StatusOK, user)
 }

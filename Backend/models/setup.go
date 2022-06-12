@@ -14,7 +14,7 @@ func Init(dsn string) *gorm.DB {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{}, &Payment{})
 
 	return db
 }

@@ -1,22 +1,12 @@
 version: "3.9"
 
 services:
-  frontend:
-    build: ./Frontend
-    restart: on-failure
-    env_file: .env
-    ports:
-      - "80:3000"
-    depends_on:
-      - db
-      - service
-
   backend:
     build: ./Backend
     restart: on-failure
     env_file: .env
     ports:
-      - "8080:8080"
+      - "80:8080"
     depends_on:
       - db
       - service
