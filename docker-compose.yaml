@@ -14,7 +14,7 @@ services:
     volumes:
       - /var/www/go-modules/limbic-api/Backend:/app
 
-  service:
+  ser_service:
     build: ./Service
     restart: always
     ports:
