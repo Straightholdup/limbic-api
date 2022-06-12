@@ -1,3 +1,4 @@
+<section >
 <div class="container"> 
     <h1>Overview</h1>
 
@@ -41,14 +42,14 @@
                 </table>
             </div>
         </GridCell>
-        <GridCell span={5}>
-            <div class="card">
+        <GridCell span={5} >
+            <div class="card" style="height: 100%;">
                 <h3>Workload</h3>
                 <canvas bind:this={wrokload} width="400" height="400"></canvas>
             </div>
         </GridCell>
         <GridCell span={7}>
-            <div class="card">
+            <div class="card" style="height: 100%;">
                 <h3>Logs</h3>
                 <table>
                     <thead>
@@ -74,6 +75,8 @@
         </GridCell>
     </LayoutGrid>
 </div>
+</section>
+
 
 <script lang="ts">
     import LayoutGrid, { Cell as GridCell } from '@smui/layout-grid';
@@ -131,6 +134,9 @@
 </script>
 
 <style >
+    section{
+        min-height: 100vh;
+    }
     h1{
         font-weight: lighter;
     }

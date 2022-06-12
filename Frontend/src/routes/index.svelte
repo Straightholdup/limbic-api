@@ -1,18 +1,21 @@
 <script>
-     import Button, { Label } from '@smui/button';
+     import Button from '@smui/button';
      import animation from '$lib/assets/animation.gif';
      import examples_background from '$lib/assets/examples-background.png';
+     import LayoutGrid, { Cell }  from '@smui/layout-grid';
+     import { Icon, Label } from '@smui/common';
 </script>
 <svelte:head>
   <title>Welcome</title>
 </svelte:head>
 
-<section class="slogan-section">
+<section id="slogan-section">
     <div class="container">
         <div class="wrapper">
+            
             <div class="about-box">
                 <h1 class="company-title">Limbic</h1>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at volutpat sapien, at sollicitudin mi</h3>
+                <h3>Words are not always important, but it is important with what emotions they were said.</h3>
             </div>
             <div class="signin-box">
                 <Button href="/auth" variant="unelevated">
@@ -29,7 +32,7 @@
     </div>
 </section>
 
-<section class="exaples-section" style="background-image: url({examples_background}); background-size:cover; background-position: center;">
+<section id="examples-section" style="background-image: url({examples_background}); background-size:cover; background-position: center;">
     <div class="container">
         <h1 class="title-center">Examples</h1>
         <ul class="selector">
@@ -39,10 +42,86 @@
     </div>
 </section>
 
-<section class="sad">
+<section id="pricing-section">
+    <div class="container" style="display: flex; flex-direction:column; align-items:center;">
+        <h1 class="title-center">Pricing</h1>
+        <p style="max-width: 800px; text-align:center; font-size:24px;">To use our services, you must purchase one or more subscriptions. After the purchase, you will have a token. More information can be found in the documentation section</p>
+        <LayoutGrid style="padding:0; width:100%;">
+            <Cell >
+                <div class="price-card">
+                    <div class="line"></div>
+                    <h1>
+                        Standard
+                    </h1>
+                    <div class="price">
+                        <h3>As low as</h3>
+                        <h3>30$ per month</h3>
+                        <Button  variant="unelevated">
+                            <Label>Purchase</Label>
+                        </Button>
+                    </div>
+                    <ul class="offers">
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>1000 delayed emotion recognitions</li>
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>500 realtime emotion recognitions</li>
+                    </ul>
+                </div>
+            </Cell>
+            <Cell >
+                <div class="price-card">
+                    <div class="line"></div>
+                    <h1>
+                        Gold
+                    </h1>
+                    <div class="price">
+                        <h3>As low as</h3>
+                        <h3>45$ per month</h3>
+                        <Button  variant="unelevated">
+                            <Label>Purchase</Label>
+                        </Button>
+                    </div>
+                    <ul class="offers">
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>1000 delayed emotion recognitions</li>
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>500 realtime emotion recognitions</li>
+                    </ul>
+                </div>
+            </Cell>
+            <Cell >
+                <div class="price-card">
+                    <div class="line"></div>
+                    <h1>
+                        Premium
+                    </h1>
+                    <div class="price">
+                        <h3>As low as</h3>
+                        <h3>60$ per month</h3>
+                        <Button  variant="unelevated">
+                            <Label>Purchase</Label>
+                        </Button>
+                    </div>
+                    <ul class="offers">
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>1000 delayed emotion recognitions</li>
+                        <li><Icon class="material-icons" style="color:#0077CC;" >check_circle</Icon>500 realtime emotion recognitions</li>
+                    </ul>
+                </div>
+            </Cell>
+        </LayoutGrid>
+    </div>
 </section>
 
 <style>
+    .price-card .line{
+        background-color: #0077CC;
+        height: 12px;
+    }
+    .offers{
+        list-style:none;
+        padding: 0;
+    }
+    .offers li{
+        display: flex;
+        align-items: center;
+    }
+
     .selector{
         color: white;
         list-style: none;
@@ -58,11 +137,13 @@
         text-align: center;
         font-size: 48px;
         letter-spacing: 10px;
-        color:white;
         text-transform: uppercase;
     }
+    #examples-section .title-center{
+        color:white;
+    }
 
-    .exaples-section{
+    #examples-section{
         height: 100vh;
         padding:1vh 0;
         width: 100%;
@@ -79,10 +160,12 @@
         object-fit: cover;
     }
     .sad{
-        height: 10000px;
+        height: 100vh;
     }
-    .slogan-section{
-        padding: 250px 0;
+    
+    #slogan-section{
+        height: 100vh;
+        display: flex;
     }
     p{
         width: 100%;
@@ -107,4 +190,9 @@
     .animation-box{
         grid-area: 1 / 2 / 4 / 3;
     }
+    #pricing-section{
+        height: 100vh;
+    }
+
+
 </style>

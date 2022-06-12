@@ -1,5 +1,6 @@
 html{
-    height: -webkit-fill-available; 
+    height: -webkit-fill-available;
+    scroll-behavior: smooth;
 }
 body{
     margin: 0;
