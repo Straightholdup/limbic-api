@@ -20,6 +20,4 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 	routes.GET("/google_login", h.HandleGoogleLogin)
 	routes.GET("/google_callback", h.HandleGoogleCallback)
 	//routes.GET("/refresh", h.Refresh)
-	//routes.GET("/g_login", h.HandleGoogleLogin)
-	//routes.GET("/g_callback", h.HandleGoogleCallback)
 }
