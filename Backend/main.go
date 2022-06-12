@@ -17,7 +17,7 @@ func main() {
 	dsn := "host=db user=root password=CSSE1810da dbname=limbic port=5432"
 	db := models.Init(dsn)
 
-	serverAddr := flag.String("addr", "ser_service:50052", "The server address in the format of host:port")
+	serverAddr := flag.String("addr", "172.31.0.1:50052", "The server address in the format of host:port")
 	conn, err := grpc.Dial(*serverAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
