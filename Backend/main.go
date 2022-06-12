@@ -29,6 +29,5 @@ func main() {
 	users.RegisterRoutes(r, db)
 	auth.RegisterRoutes(r, db)
 	payment.RegisterRoutes(r, db)
-	//r.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Run(":8080")
 }
