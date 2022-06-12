@@ -2,22 +2,22 @@ package main
 
 import (
 	"flag"
-	"github.com/gin-gonic/gin"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"limbic/controllers/auth"
 	"limbic/controllers/emotions"
-	"limbic/controllers/payment"
 	"limbic/controllers/users"
 	"limbic/models"
 	"log"
+
+	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
-	dsn := "host=localhost user=root password=CSSE1810da dbname=limbic port=5432"
+	dsn := "host=db user=root password=CSSE1810da dbname=limbic port=5432"
 	db := models.Init(dsn)
 
-	serverAddr := flag.String("addr", "localhost:50052", "The server address in the format of host:port")
+	serverAddr := flag.String("addr", "ser_service:50052", "The server address in the format of host:port")
 	conn, err := grpc.Dial(*serverAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
@@ -28,6 +28,6 @@ func main() {
 	emotions.RegisterRoutes(r, conn)
 	users.RegisterRoutes(r, db)
 	auth.RegisterRoutes(r, db)
-	payment.RegisterRoutes(r, db)
+
 	r.Run(":80")
 }
